@@ -1,36 +1,54 @@
-import React, { useEffect, useState } from 'react';
-import { ShoppingCartIcon, SearchIcon, CalendarIcon, ChevronDownIcon, ChevronUpIcon, UserIcon } from 'lucide-react';
-import { getTransactionsWithDetails } from '../../utils/mockData';
-import { TransactionWithDetails } from '../../utils/types';
+import React, { useEffect, useState } from "react";
+import {
+  ShoppingCartIcon,
+  SearchIcon,
+  CalendarIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+  UserIcon,
+} from "lucide-react";
+import { getTransactionsWithDetails } from "../../utils/mockData";
+import { TransactionWithDetails } from "../../utils/types";
 const TransactionsHistory: React.FC = () => {
-  const [transactions, setTransactions] = useState<TransactionWithDetails[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [expandedTransactions, setExpandedTransactions] = useState<number[]>([]);
+  const [transactions, setTransactions] = useState<TransactionWithDetails[]>(
+    []
+  );
+  const [searchTerm, setSearchTerm] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [expandedTransactions, setExpandedTransactions] = useState<number[]>(
+    []
+  );
   useEffect(() => {
     // Get transactions with details
     const txData = getTransactionsWithDetails();
     setTransactions(txData);
   }, []);
   const toggleTransactionExpand = (txId: number) => {
-    setExpandedTransactions(prev => {
+    setExpandedTransactions((prev) => {
       if (prev.includes(txId)) {
-        return prev.filter(id => id !== txId);
+        return prev.filter((id) => id !== txId);
       } else {
         return [...prev, txId];
       }
     });
   };
-  const filteredTransactions = transactions.filter(tx => {
+  const filteredTransactions = transactions.filter((tx) => {
     let matches = true;
     if (searchTerm) {
       const search = searchTerm.toLowerCase();
-      const matchesTxNumber = tx.transaction_number.toLowerCase().includes(search);
+      const matchesTxNumber = tx.transaction_number
+        .toLowerCase()
+        .includes(search);
       const matchesEmployee = tx.employee_name.toLowerCase().includes(search);
-      const matchesDepartment = tx.employee_department.toLowerCase().includes(search);
-      const matchesItems = tx.items.some(item => item.item_name.toLowerCase().includes(search));
-      matches = matchesTxNumber || matchesEmployee || matchesDepartment || matchesItems;
+      const matchesDepartment = tx.employee_department
+        .toLowerCase()
+        .includes(search);
+      const matchesItems = tx.items.some((item) =>
+        item.item_name.toLowerCase().includes(search)
+      );
+      matches =
+        matchesTxNumber || matchesEmployee || matchesDepartment || matchesItems;
     }
     if (startDate && new Date(tx.transaction_date) < new Date(startDate)) {
       matches = false;
@@ -40,19 +58,26 @@ const TransactionsHistory: React.FC = () => {
     }
     return matches;
   });
-  return <div>
+  return (
+    <div>
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold">Transaction History</h2>
+        <h2 className="text-2xl font-bold">交易紀錄</h2>
       </div>
       {/* Filters */}
       <div className="bg-white p-4 rounded-lg shadow mb-6">
         <div className="flex flex-wrap gap-4">
           <div className="flex-1 min-w-[240px]">
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Search
+              搜尋
             </label>
             <div className="relative">
-              <input type="text" className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Search by transaction #, employee, items..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+              <input
+                type="text"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                placeholder="按交易號碼、員工、項目搜尋..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
               <div className="absolute left-3 top-2.5 text-gray-400">
                 <SearchIcon className="h-5 w-5" />
               </div>
@@ -60,10 +85,15 @@ const TransactionsHistory: React.FC = () => {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Start Date
+              開始日期
             </label>
             <div className="relative">
-              <input type="date" className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" value={startDate} onChange={e => setStartDate(e.target.value)} />
+              <input
+                type="date"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
               <div className="absolute left-3 top-2.5 text-gray-400">
                 <CalendarIcon className="h-5 w-5" />
               </div>
@@ -71,10 +101,15 @@ const TransactionsHistory: React.FC = () => {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              End Date
+              End D ate
             </label>
             <div className="relative">
-              <input type="date" className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" value={endDate} onChange={e => setEndDate(e.target.value)} />
+              <input
+                type="date"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+              />
               <div className="absolute left-3 top-2.5 text-gray-400">
                 <CalendarIcon className="h-5 w-5" />
               </div>
@@ -84,11 +119,21 @@ const TransactionsHistory: React.FC = () => {
       </div>
       {/* Transactions List */}
       <div className="space-y-4">
-        {filteredTransactions.map(tx => {
-        const isExpanded = expandedTransactions.includes(tx.transaction_id);
-        const totalCost = tx.items.reduce((sum, item) => sum + item.total_cost, 0);
-        return <div key={tx.transaction_id} className="bg-white rounded-lg shadow overflow-hidden">
-              <div className="p-4 cursor-pointer hover:bg-gray-50" onClick={() => toggleTransactionExpand(tx.transaction_id)}>
+        {filteredTransactions.map((tx) => {
+          const isExpanded = expandedTransactions.includes(tx.transaction_id);
+          const totalCost = tx.items.reduce(
+            (sum, item) => sum + item.total_cost,
+            0
+          );
+          return (
+            <div
+              key={tx.transaction_id}
+              className="bg-white rounded-lg shadow overflow-hidden"
+            >
+              <div
+                className="p-4 cursor-pointer hover:bg-gray-50"
+                onClick={() => toggleTransactionExpand(tx.transaction_id)}
+              >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <div className="p-2 rounded-full bg-blue-100">
@@ -99,7 +144,7 @@ const TransactionsHistory: React.FC = () => {
                         {tx.transaction_number}
                       </h3>
                       <p className="text-sm text-gray-500">
-                        {new Date(tx.transaction_date).toLocaleDateString()} •{' '}
+                        {new Date(tx.transaction_date).toLocaleDateString()} •{" "}
                         {tx.total_items} items
                       </p>
                     </div>
@@ -117,51 +162,57 @@ const TransactionsHistory: React.FC = () => {
                       ${totalCost.toFixed(2)}
                     </div>
                     <button className="text-gray-500">
-                      {isExpanded ? <ChevronUpIcon className="h-5 w-5" /> : <ChevronDownIcon className="h-5 w-5" />}
+                      {isExpanded ? (
+                        <ChevronUpIcon className="h-5 w-5" />
+                      ) : (
+                        <ChevronDownIcon className="h-5 w-5" />
+                      )}
                     </button>
                   </div>
                 </div>
               </div>
-              {isExpanded && <div className="border-t border-gray-200 p-4">
+              {isExpanded && (
+                <div className="border-t border-gray-200 p-4">
                   <div className="flex justify-between mb-4">
                     <div>
-                      <p className="text-sm text-gray-500">Employee</p>
+                      <p className="text-sm text-gray-500">人員</p>
                       <p>{tx.employee_name}</p>
                       <p className="text-sm text-gray-500">
                         {tx.employee_department}
                       </p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500">Date & Time</p>
+                      <p className="text-sm text-gray-500">日期 & 時間</p>
                       <p>{new Date(tx.transaction_date).toLocaleString()}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500">Status</p>
+                      <p className="text-sm text-gray-500">狀態</p>
                       <p className="capitalize">{tx.status}</p>
                     </div>
                   </div>
                   <div className="mt-4">
-                    <h4 className="font-medium mb-2">Transaction Items</h4>
+                    <h4 className="font-medium mb-2">交易物品</h4>
                     <div className="overflow-x-auto">
                       <table className="min-w-full divide-y divide-gray-200">
                         <thead className="bg-gray-50">
                           <tr>
                             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              Item
+                              物品
                             </th>
                             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              Quantity
+                              數量
                             </th>
                             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              Unit Cost
+                              單價
                             </th>
                             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              Total
+                              總計
                             </th>
                           </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
-                          {tx.items.map(item => <tr key={item.transaction_item_id}>
+                          {tx.items.map((item) => (
+                            <tr key={item.transaction_item_id}>
                               <td className="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
                                 {item.item_name}
                               </td>
@@ -174,9 +225,13 @@ const TransactionsHistory: React.FC = () => {
                               <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
                                 ${item.total_cost.toFixed(2)}
                               </td>
-                            </tr>)}
+                            </tr>
+                          ))}
                           <tr className="bg-gray-50">
-                            <td colSpan={3} className="px-4 py-2 text-right text-sm font-medium">
+                            <td
+                              colSpan={3}
+                              className="px-4 py-2 text-right text-sm font-medium"
+                            >
                               Total:
                             </td>
                             <td className="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
@@ -187,17 +242,24 @@ const TransactionsHistory: React.FC = () => {
                       </table>
                     </div>
                   </div>
-                  {tx.notes && <div className="mt-4">
+                  {tx.notes && (
+                    <div className="mt-4">
                       <h4 className="font-medium mb-1">Notes</h4>
                       <p className="text-sm text-gray-700">{tx.notes}</p>
-                    </div>}
-                </div>}
-            </div>;
-      })}
-        {filteredTransactions.length === 0 && <div className="bg-white rounded-lg shadow p-8 text-center text-gray-500">
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          );
+        })}
+        {filteredTransactions.length === 0 && (
+          <div className="bg-white rounded-lg shadow p-8 text-center text-gray-500">
             No transactions found matching your search criteria.
-          </div>}
+          </div>
+        )}
       </div>
-    </div>;
+    </div>
+  );
 };
 export default TransactionsHistory;

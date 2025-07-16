@@ -69,10 +69,10 @@ const InventoryManagement: React.FC = () => {
   };
   return <div>
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold">Inventory Management</h2>
+        <h2 className="text-2xl font-bold">庫存管理</h2>
         <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center">
           <PlusIcon className="h-4 w-4 mr-1" />
-          Add New Item
+          新增物品
         </button>
       </div>
       {/* Filters */}
@@ -80,7 +80,7 @@ const InventoryManagement: React.FC = () => {
         <div className="flex flex-wrap gap-4 items-end">
           <div className="flex-1 min-w-[240px]">
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Search
+              搜尋
             </label>
             <div className="relative">
               <input type="text" className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Search by name, code, category..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
@@ -91,7 +91,7 @@ const InventoryManagement: React.FC = () => {
           </div>
           <div className="w-full md:w-auto">
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Category
+              類別
             </label>
             <select className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500" value={selectedCategory === null ? '' : selectedCategory} onChange={e => {
             const value = e.target.value ? parseInt(e.target.value) : null;
@@ -106,7 +106,7 @@ const InventoryManagement: React.FC = () => {
           </div>
           <div className="w-full md:w-auto">
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Subcategory
+              子類別
             </label>
             <select className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500" value={selectedSubcategory === null ? '' : selectedSubcategory} onChange={e => {
             const value = e.target.value ? parseInt(e.target.value) : null;
@@ -121,7 +121,7 @@ const InventoryManagement: React.FC = () => {
           <div className="flex items-center">
             <input type="checkbox" id="lowStockOnly" checked={showLowStockOnly} onChange={() => setShowLowStockOnly(!showLowStockOnly)} className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
             <label htmlFor="lowStockOnly" className="ml-2 block text-sm text-gray-900">
-              Show low stock only
+              只顯示低庫存物品
             </label>
           </div>
         </div>
@@ -133,25 +133,25 @@ const InventoryManagement: React.FC = () => {
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Item
+                  物品
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Category
+                  類別
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Location
+                  位置
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Stock Level
+                  庫存
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Min/Max
+                  最低/最高庫存
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Value
+                  價值
                 </th>
                 <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
+                  操作
                 </th>
               </tr>
             </thead>
@@ -197,13 +197,13 @@ const InventoryManagement: React.FC = () => {
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <button onClick={() => handleEditItem(item)} className="text-blue-600 hover:text-blue-900 flex items-center justify-end w-full">
                       <EditIcon className="h-4 w-4 mr-1" />
-                      Edit
+                      編輯
                     </button>
                   </td>
                 </tr>)}
               {filteredItems.length === 0 && <tr>
                   <td colSpan={7} className="px-6 py-8 text-center text-gray-500">
-                    No items found matching your criteria.
+                    找不到符合條件的物品。
                   </td>
                 </tr>}
             </tbody>
@@ -214,12 +214,12 @@ const InventoryManagement: React.FC = () => {
       {showEditModal && currentItem && <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg shadow-lg w-full max-w-md mx-4">
             <div className="p-4 border-b border-gray-200">
-              <h3 className="text-lg font-semibold">Edit Inventory Item</h3>
+              <h3 className="text-lg font-semibold">編輯庫存物品</h3>
             </div>
             <div className="p-4">
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Item
+                  物品
                 </label>
                 <div className="text-gray-900">
                   {currentItem.item_name} ({currentItem.item_code})
@@ -227,27 +227,27 @@ const InventoryManagement: React.FC = () => {
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Current Stock
+                  庫存
                 </label>
                 <input type="number" value={editStock} onChange={e => setEditStock(parseInt(e.target.value) || 0)} min="0" className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500" />
               </div>
               <div className="flex justify-between text-sm mb-4">
                 <div>
-                  <span className="text-gray-500">Minimum Stock:</span>{' '}
+                  <span className="text-gray-500">最低庫存:</span>{' '}
                   {currentItem.minimum_stock_level}
                 </div>
                 <div>
-                  <span className="text-gray-500">Maximum Stock:</span>{' '}
+                  <span className="text-gray-500">最高庫存:</span>{' '}
                   {currentItem.maximum_stock_level}
                 </div>
               </div>
             </div>
             <div className="p-4 border-t border-gray-200 flex justify-end space-x-3">
               <button onClick={() => setShowEditModal(false)} className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
-                Cancel
+                取消
               </button>
               <button onClick={handleSaveEdit} className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-                Save Changes
+                儲存變更
               </button>
             </div>
           </div>

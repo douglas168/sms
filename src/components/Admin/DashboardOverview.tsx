@@ -11,7 +11,7 @@ const DashboardOverview: React.FC = () => {
     return sum + item.current_stock * item.unit_cost;
   }, 0);
   return <div>
-      <h2 className="text-2xl font-bold mb-6">Dashboard Overview</h2>
+      <h2 className="text-2xl font-bold mb-6">儀表板</h2>
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <div className="bg-white rounded-lg shadow p-4 border-l-4 border-blue-500">
@@ -20,7 +20,7 @@ const DashboardOverview: React.FC = () => {
               <PackageIcon className="h-6 w-6 text-blue-600" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Total Inventory Items</p>
+              <p className="text-sm text-gray-500">總庫存物品</p>
               <p className="text-xl font-semibold">{totalItems}</p>
             </div>
           </div>
@@ -31,7 +31,7 @@ const DashboardOverview: React.FC = () => {
               <TrendingUpIcon className="h-6 w-6 text-green-600" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Total Inventory Value</p>
+              <p className="text-sm text-gray-500">總庫存價值</p>
               <p className="text-xl font-semibold">${totalValue.toFixed(2)}</p>
             </div>
           </div>
@@ -42,7 +42,7 @@ const DashboardOverview: React.FC = () => {
               <AlertCircleIcon className="h-6 w-6 text-amber-600" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Low Stock Items</p>
+              <p className="text-sm text-gray-500">低庫存物品</p>
               <p className="text-xl font-semibold">{lowStockItems.length}</p>
             </div>
           </div>
@@ -53,7 +53,7 @@ const DashboardOverview: React.FC = () => {
               <TruckIcon className="h-6 w-6 text-purple-600" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Pending Orders</p>
+              <p className="text-sm text-gray-500">待處理採購單</p>
               <p className="text-xl font-semibold">{pendingOrders.length}</p>
             </div>
           </div>
@@ -63,7 +63,7 @@ const DashboardOverview: React.FC = () => {
       <div className="mb-8">
         <h3 className="text-lg font-semibold mb-4 flex items-center">
           <AlertCircleIcon className="h-5 w-5 text-amber-500 mr-2" />
-          Low Stock Items
+          低庫存物品
         </h3>
         <div className="bg-white rounded-lg shadow overflow-hidden">
           {lowStockItems.length > 0 ? <div className="overflow-x-auto">
@@ -71,16 +71,16 @@ const DashboardOverview: React.FC = () => {
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Item
+                      物品
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Category
+                      類別
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Current Stock
+                      庫存
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Minimum Level
+                      最低庫存
                     </th>
                   </tr>
                 </thead>
@@ -129,7 +129,7 @@ const DashboardOverview: React.FC = () => {
       <div>
         <h3 className="text-lg font-semibold mb-4 flex items-center">
           <ShoppingCartIcon className="h-5 w-5 text-blue-500 mr-2" />
-          Recent Transactions
+          近期交易
         </h3>
         <div className="bg-white rounded-lg shadow overflow-hidden">
           {recentTransactions.length > 0 ? <div className="overflow-x-auto">
@@ -137,16 +137,16 @@ const DashboardOverview: React.FC = () => {
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Transaction #
+                      交易編號
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Date
+                      日期
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Employee
+                      人員
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Items
+                      物品
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Status
