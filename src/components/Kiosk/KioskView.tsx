@@ -74,28 +74,28 @@ const KioskView: React.FC = () => {
             <div className={`w-10 h-10 rounded-full flex items-center justify-center ${currentStep >= KioskStep.BADGE_SCAN ? 'bg-blue-100' : 'bg-gray-100'}`}>
               <div className="w-5 h-5" />
             </div>
-            <span className="text-sm mt-1">Badge Scan</span>
+            <span className="text-sm mt-1">衣編掃描</span>
           </div>
           <div className={`flex-1 h-1 mx-2 ${currentStep >= KioskStep.ITEM_SELECTION ? 'bg-blue-600' : 'bg-gray-200'}`}></div>
           <div className={`flex flex-col items-center ${currentStep >= KioskStep.ITEM_SELECTION ? 'text-blue-600' : 'text-gray-400'}`}>
             <div className={`w-10 h-10 rounded-full flex items-center justify-center ${currentStep >= KioskStep.ITEM_SELECTION ? 'bg-blue-100' : 'bg-gray-100'}`}>
               <ShoppingCartIcon className="w-5 h-5" />
             </div>
-            <span className="text-sm mt-1">Select Items</span>
+            <span className="text-sm mt-1">選擇物品</span>
           </div>
           <div className={`flex-1 h-1 mx-2 ${currentStep >= KioskStep.CHECKOUT_CONFIRMATION ? 'bg-blue-600' : 'bg-gray-200'}`}></div>
           <div className={`flex flex-col items-center ${currentStep >= KioskStep.CHECKOUT_CONFIRMATION ? 'text-blue-600' : 'text-gray-400'}`}>
             <div className={`w-10 h-10 rounded-full flex items-center justify-center ${currentStep >= KioskStep.CHECKOUT_CONFIRMATION ? 'bg-blue-100' : 'bg-gray-100'}`}>
               <CheckCircleIcon className="w-5 h-5" />
             </div>
-            <span className="text-sm mt-1">Confirmation</span>
+            <span className="text-sm mt-1">確認</span>
           </div>
         </div>
       </div>;
   };
   return <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold text-center mb-8">
-        Stationery Self-Checkout Kiosk
+        文具自助結帳機
       </h1>
       {renderProgressBar()}
       <div className="bg-white rounded-lg shadow-md p-6">
